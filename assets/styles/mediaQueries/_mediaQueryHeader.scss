@@ -1,0 +1,50 @@
+@media screen and(max-width: 830px){
+    header{
+        nav{
+            position: fixed;
+            inset: 0 0 0 0;
+            opacity: 0;
+            visibility: hidden;
+            @include flex(center, column);
+            @include transi();
+            width: 100%;
+            transform: translateX(100%);
+            z-index: 6;
+            gap: 2em;
+            background-color: $darkColor;
+            
+            ul{
+                @include flex(center, column);
+                gap: 2em;
+            }
+    
+            .mainNavUl{
+                transform: translateX(0);
+            }
+    
+            li{
+                font-size: 22px;
+            }
+            #closeButton{
+                position: absolute;
+                top: 0;
+                right: 0;
+                transform: translate(-50%, 30%);
+                display: block;
+                font-size: 40px;
+                color: $deleteColor;
+                cursor: pointer;
+            }
+        }
+
+        nav.active{
+            opacity: 1;
+            visibility: visible;
+            z-index: 9000;
+            transform: translateX(0%);
+        }
+        #burgerButton{
+            display: block;
+        }
+    }
+}

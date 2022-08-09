@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Connectez vous à votre compte pour pouvoir créer et modifier vos annonces de recherche de groupe et/ou recrutement de joueurs pour le MMORPG Final Fantasy XIV.{% endblock %}
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section id="loginSection">
+    <article class="loginForm">
+        <h1>Connexion</h1>
+        <p>Pas encore membre ? <a href="{{path('app_register')}}">Inscription</a></p>
+        <form method="post">
+
+            <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+            <input type="password" placeholder="Mot de passe (6-60 caractères)" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+
+            {% if error %}
+                <p class="messageError">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            {% endif %}
+            
+            <button class="button buttonGeneric" type="submit">Connexion</button>
+        </form>
+    </article>
+</section>
+
+{% endblock %}

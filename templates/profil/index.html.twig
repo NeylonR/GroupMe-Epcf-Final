@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Modifiez vos informations personnelles et retrouvez vos annonces actives.{% endblock %}
+{% block title %}Profil {{user.name}}{% endblock %}
+
+{% block body %}
+<section id="profileBannerSection" class="topPageBanner">
+    <h1>Modifier mes informations</h1>
+</section>
+<section id="profileSection">
+    <article class="modifyInfoContainer">
+        <div class="avatarAndAdvertisementContainer">
+            <div class="avatarContainer">
+                {% if user.avatar is not null %}
+                    <img src="{{vich_uploader_asset(user, 'avatarFile')}}" alt="Image d'avatar utilisé par {{user.name}}">
+                {% else %}
+                    <img src="{{asset('images/placeholder.png')}}" alt="Placeholder d'avatar pour {{user.name}}">
+                {% endif %}
+
+                {{form_start(formAvatar)}}
+                    <label id="uploadButton" for="modify_avatar_avatarFile_file">
+                        {{form_widget(formAvatar.avatarFile.file)}}
+                        <span>Choisir un fichier</span>
+                        <p>Aucun fichier choisi</p>
+                    </label>
+                    {% if formAvatar.avatarFile.delete is defined %}
+                        <label class="labelDelete" for="modify_avatar_avatarFile_delete">
+                        {{form_widget(formAvatar.avatarFile.delete)}}
+                        <span>Supprimer l'image</span>
+                        </label>
+                    {% endif %}
+                    {{form_errors(formAvatar.avatarFile)}}
+                {{form_end(formAvatar)}}
+            </div>
+
+            <div class="advertisementInfoContainer">
+                {% if user.playerAdvertisement is not null %}
+                    <p>Vous avez une annonce active en tant que joueur.</p>
+                    <a href="{{path('app_player_detail', {id : user.playerAdvertisement.id})}}" class="advertisementPlayerLink">Voir mon annonce</a>
+                {% else %}
+                    <p>Vous n'avez pas d'annonce active posté en tant que joueur.</p>
+                {% endif %}
+
+                {% if user.recruitAdvertisement is not null %}
+                    <p>Vous avez une annonce active en tant que roster.</p>
+                    <a href="{{path('app_roster_detail', {id : user.recruitAdvertisement.id})}}" class="advertisementRosterLink">Voir mon annonce</a>
+                {% else %}
+                    <p>Vous n'avez pas d'annonce active posté en tant que roster.</p>
+                {% endif %}
+            </div>        
+        </div>
+
+        <div class="otherInforContainer">
+            <div class="divForm">
+                {{form_start(formName)}}
+                    <div class="inputContainer">
+                        {{form_label(formName.name, 'Nom d\'utilisateur')}}
+                        {{form_widget(formName.name)}}
+                        {{form_errors(formName.name)}}
+                    </div>
+                    {{form_widget(formName.submit)}}
+                {{form_end(formName)}}
+            </div>
+
+            <div class="divForm">
+                {{form_start(formPassword)}}
+                    <div class="inputContainer">
+                        {{form_label(formPassword.password, 'Mot de passe')}}
+                        {{form_widget(formPassword.password)}}
+                        {{form_errors(formPassword.password)}}
+                    </div>
+                    {{form_widget(formPassword.submit)}}
+                {{form_end(formPassword)}}
+            </div> 
+
+            <div class="divForm">
+                {{form_start(formEmail)}}
+                    <div class="inputContainer">
+                        {{form_label(formEmail.email, 'Email')}}
+                        {{form_widget(formEmail.email)}}
+                        {{form_errors(formEmail.email)}}
+                    </div>
+                    {{form_widget(formEmail.submit)}}
+                {{form_end(formEmail)}}
+            </div>
+
+            <div class="divForm">
+                {{form_start(formDiscordTag)}}
+                    <div class="inputContainer">
+                        {{form_label(formDiscordTag.discordTag, 'Tag discord ( Exemple#0123 )')}}
+                        {{form_widget(formDiscordTag.discordTag)}}
+                        {{form_errors(formDiscordTag.discordTag)}}
+                    </div>
+                    {{form_widget(formDiscordTag.submit)}}
+                {{form_end(formDiscordTag)}}
+            </div>
+        </div>
+    </article>
+    <div class="deleteAccountContainer">
+        <h3>Supprimer mon compte</h3>
+        <p>Vous ne pourrez pas récupérer votre compte après sa suppression.</p>
+        <form action="{{ url('app_delete_account', { id: user.id }) }}" method="post">
+            {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+            <input type="hidden" name="token" value="{{ csrf_token('delete_account') }}"/>
+
+            <button class="button buttonDelete" type="submit" onClick="return confirm('Etes vous bien sur de vouloir supprimer votre compte?');" >Supprimer mon compte </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{# Js pour l'upload d'image ( affichage du nom du fichier lors du choix ) #}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('uploadImgStyle') }}
+{% endblock %}

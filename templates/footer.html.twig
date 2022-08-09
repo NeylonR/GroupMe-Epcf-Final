@@ -1,0 +1,28 @@
+<footer>
+    <a href="{{path('app_home')}}" class="logo"><img src="{{asset('images/logo.svg')}}" alt="Logo de GroupMe, trouver des joueurs et des rosters pour le mmorpg Final Fantasy XIV" class="logo"></a>
+    <div class="mainListContainer">
+        <ul>
+            <li class="ulTitle">Joueurs</li>
+            <li><a href="{{path('app_player_create')}}">Poster votre annonce</a></li>
+            <li><a href="{{path('app_player_index')}}">Chercher un joueur</a></li>
+        </ul>
+        <ul>
+            <li class="ulTitle">Roster</li>
+            <li><a href="{{path('app_roster_create')}}">Poster votre annonce</a></li>
+            <li><a href="{{path('app_roster_index')}}">Chercher un roster</a></li>
+        </ul>
+        <ul>
+            <li class="ulTitle">Ressources</li>
+            {# <li><a href="">Conditions de services</a></li>
+            <li><a href="">RGPD</a></li> #}
+            <li><a href="mailto:temporaire@gmail.com">Contact</a></li>
+        </ul>
+    </div>
+    <div class="socialsListContainer">
+        <p class="ulTitle">Réseaux</p>
+        <ul class="socialsList">
+            <li><a href=""><i class="fa-brands fa-discord"></i></a></li>
+            <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
+        </ul>
+    </div>
+</footer>

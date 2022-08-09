@@ -1,0 +1,273 @@
+* {
+    list-style-type: none;
+    padding: 0;
+    margin:0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'myriad';
+    src: url(../../public/fonts/myriad/MYRIADPRO-REGULAR.OTF);
+}
+
+@font-face {
+    font-family: 'myriadBold';
+    src: url(../../public/fonts/myriad/MYRIADPRO-BOLD.OTF);
+}
+
+@font-face {
+    font-family: 'jupiter';
+    src: url(../../public/fonts/jupiter/Fontspring-DEMO-jupiter_pro_bold.otf);
+}
+
+@font-face {
+    font-family: 'proxima';
+    src: url(../../public/fonts/proximanova/proxima_nova_bold.otf);
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    scroll-behavior: smooth;
+    font-family: 'myriad', 'Helvetica';
+}
+
+h1 ,h2{
+    font-family: 'jupiter', 'proxima';
+    line-height: 1;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.808));
+    -webkit-text-stroke: .3px black;
+    background-image: -webkit-linear-gradient(
+    90deg,
+    hsl(41deg 100% 81%) 0%,
+    hsl(36deg 74% 75%) 10%,
+    hsl(31deg 55% 69%) 20%,
+    hsl(27deg 42% 64%) 30%,
+    hsl(23deg 31% 58%) 40%,
+    hsl(19deg 22% 51%) 50%,
+    hsl(23deg 31% 58%) 60%,
+    hsl(27deg 42% 64%) 70%,
+    hsl(31deg 55% 69%) 80%,
+    hsl(36deg 74% 75%) 90%,
+    hsl(41deg 100% 81%) 100%
+    );
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+h1{
+    font-size: 28px;
+}
+
+h2{
+    font-size: 24px;
+}
+
+h3{
+    font-size: 20px;
+}
+
+.logo{
+    line-height: 0;
+    width: 170px;
+    img{
+        width: 170px;
+    }
+}
+
+a{
+    @include transi();
+    font-family: 'myriadBold';
+    color: black;
+}
+
+.button{
+    @include transi();
+    font-family: 'myriadBold';
+    display: inline-block;
+    border-radius: 7px;
+    font-size: 16px;
+    color:black;
+    width: 230px;
+    height: 34px;
+    padding: .4em 0;
+    text-align: center;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.253);
+    cursor: pointer;
+
+    &:hover{
+        transform: translate(2px, -2px);
+    }
+}
+
+button{
+    border: none;
+}
+
+.buttonGeneric{
+    background-color: $genericButtonColor;
+    color: white;
+}
+
+.buttonRoster{
+    background-color: $rosterColor;
+}
+
+.buttonPlayer{
+    background-color: $playerColor;
+}
+
+.buttonDelete{
+    background-color: $deleteColor;
+}
+
+[data-status="visible"]{
+    opacity: 1;
+    visibility: visible;
+    position: static;
+    transition: opacity .2s ease-in-out;
+    // transform: scale(1);
+    height: auto;
+    @include transi();
+}
+
+[data-status="hidden"]{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    // transform: scale(0);
+    height: auto;
+    overflow: hidden;
+    // @include transi();
+}
+
+.adminForm{
+    @include flex(flex-start, column, flex-start);
+    gap: 1em;
+
+    div{
+        @include flex(flex-start,column,flex-start);
+    }
+
+    input{
+        background-color: rgb(204, 204, 204);
+        border-radius: 7px;
+        border: none;
+        padding: .5em .5em;
+        font-size: 16px;
+        font-family: 'myriad';
+
+        &:active, &:focus{
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+select{
+    cursor: pointer;
+}
+
+input, select{
+    border: none;
+}
+
+input:active, input:focus, select:active, select:focus , textarea, textarea:active, textarea:focus{
+    border: none;
+    outline: none;
+}
+
+.iconJob, .icon{
+    width: 35px;
+    height: 35px;
+}
+
+.iconLanguage{
+    width: 35px;
+    height: 35px;
+}
+
+.navAvatar{
+    width: 35px;
+    height: 35px;
+}
+
+.topPageBanner{
+    @include flex(center, column);
+    gap: 2em;
+    min-height: 30vh;
+    padding: 3em 2em;
+    text-align: center;
+    p{
+        color:white;
+        font-family: "myriadBold";
+        font-size: 20px;
+    }
+}
+
+.pagination{
+    @include flex();
+    gap: .5em;
+    background-color: transparent;
+    padding: 2em 1em 0;
+    min-width: 150px;
+    margin: 0 auto;
+
+    a{
+        display: inline-block;
+        border-radius: 7px;
+        min-width: 40px;
+        min-height: 40px;
+        @include flex();
+        color: black;
+        background-color: $playerColor;
+        padding: .5em;
+        @include transi();
+        &:hover:not(.current){
+            background-color: #bb672a;
+        }
+    }
+
+    .current{
+        background-color: $playerColor;
+        text-decoration:line-through;
+        border-radius: 7px;
+        min-width: 40px;
+        min-height: 40px;
+        @include flex();
+        color: black;
+    }
+
+    .pagination-previous, .pagination-next{
+        border-radius: 10px;
+        padding: 0 .5em ;
+    }
+
+    .disabled{
+        display: none;
+    }
+}
+.rosterNavigation{
+    a, .current{
+        background-color: $rosterColor;
+    }
+    a:hover:not(.current){
+        background-color: #656fac;
+    }
+}
+
+.error{
+    color: $deleteColor;
+    text-align: center;
+}
+
+.help-text{
+    max-width: 250px;
+    font-size: 14px;
+    padding-top: .2em;
+}

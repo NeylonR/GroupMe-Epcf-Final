@@ -1,0 +1,62 @@
+#registerSection, #loginSection{
+    @include flex(flex-start);
+    min-height: 80vh;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%,rgba(0,0,0,.9) 500px, rgba(0,0,0,0) 100%), url('../../public/images/background/login_register_bg.png') fixed no-repeat;
+    background-size: cover;
+    padding: 0 3em;
+    color:white;
+    h1{
+        margin-bottom: .7em;
+    }
+    p{
+        margin-bottom: 2em;
+    }
+    .messageError{
+        color: rgb(221, 85, 85);
+        margin-bottom: 0em;
+    }
+    a{
+        color: white;
+    }
+    form{
+        @include flex(flex-start, column, flex-start);
+        gap: 2em;
+    }
+    .buttonGeneric{
+        width: auto;
+        padding: .4em 2em;
+        cursor: pointer;
+    }
+    input{
+        background-color: white;
+        border-radius: 7px;
+        border: none;
+        padding: .5em .5em;
+        font-size: 16px;
+        font-family: 'myriad';
+        width: 230px;
+    }
+}
+
+#loginSection{
+    @include flex(flex-end);
+    background: linear-gradient(270deg, rgba(0,0,0,1) 0%,rgba(0,0,0,.9) 500px, rgba(0,0,0,0) 100%), url('../../public/images/background/login_register_bg.png') fixed no-repeat;
+    background-size: cover;
+
+    article{
+        @include flex(flex-end, column, flex-end);
+    }
+
+    form{
+        @include flex(flex-end, column, flex-end);
+    }
+}
+
+#registerSection{
+    form{
+        ul{
+            font-size: 14px;
+            font-family: 'myriadBold';
+        }
+    }
+}

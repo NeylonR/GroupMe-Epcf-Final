@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GroupMe, recherche de joueurs et de roster sur Final Fantasy XIV{% endblock %}
+
+{% block body %}
+<section id="bannerSection">
+    <img src="{{asset('images/logo.svg')}}" alt="Logo de GroupMe, trouver des joueurs et des rosters pour le mmorpg Final Fantasy XIV" class="logo">
+
+    <article>
+        <p>Vous êtes un joueur du MMORPG Final Fantasy XIV ?</p>
+        <p>Vous cherchez des joueurs pour remplir votre roster ?</p>
+        <p>Vous cherchez un groupe pour partir en raid ?</p>
+        <p>Postez votre annonce des maintenant ou consulter la liste de joueurs/rosters disponible afin de pouvoir raid en toute tranquilité !</p>
+    </article>
+
+    <div class="anchorCardContainer">
+        <div class="anchorCard anchorCardPlayer">
+            <img src="{{asset('images/icon/player_icon.png')}}" alt="Icône pour les joueurs" class="playerIcon icon">
+            <h3>Vous êtes un joueur</h3>
+            <p>Recrute l'un des {{numberOfPlayerAdvertisement}} joueurs!</p>
+            <a  href="#informationPlayer" class="arrowAnchor"><i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+
+        <div class="anchorCard anchorCardRoster">
+            <img src="{{asset('images/icon/roster_icon.svg')}}" alt="Icône pour les rosters" class="rosterIcon icon">
+            <h3>Vous êtes un roster</h3>
+            <p>Rejoins l'un des {{numberOfRecruitAdvertisement}} rosters !</p>
+            <a  href="#informationRoster" class="arrowAnchor"><i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+    </div>
+</section>
+
+<section id="informationSection">
+    <article class="informationContainer" id="informationPlayer">
+        <img src="{{asset('images/icon/player_icon.png')}}" alt="Icône pour les joueurs" class="playerIcon">
+        <div class="textContainer">
+            <h2>Pour les joueurs</h2>
+            <p>Sur GroupMe vous pouvez créer puis publier votre annonce de recherche de groupe gratuitement et facilement !</p>
+            <p>Vous avez aussi accès à toute les annonces de roster qui sont activement en recherche de joueurs pour remplir leurs rangs.</p>
+        </div>
+        <div class="buttonContainer">
+            <a href="{{path('app_player_create')}}" class="button buttonPlayer">Créer une annonce</a>
+            <a href="{{path('app_roster_index')}}" class="button buttonPlayer">Chercher un roster</a>
+        </div>
+    </article>
+
+    <article class="informationContainer" id="informationRoster">
+        <img src="{{asset('images/icon/roster_icon.svg')}}" alt="Icône pour les rosters" class="rosterIcon">
+        <div class="textContainer">
+            <h2>Pour les rosters</h2>
+            <p>Créer puis publiez votre annonce de recrutement dès à présent afin de gagner en visibilité et pouvoir trouver vos futur team mates !</p>
+            <p>Vous pouvez aussi parcourir la liste des joueurs qui sont actuellement à la recherche d’un roster.</p>
+        </div>
+        <div class="buttonContainer">
+            <a href="{{path('app_roster_create')}}" class="button buttonRoster">Créer une annonce</a>
+            <a href="{{path('app_player_index')}}" class="button buttonRoster">Chercher un joueur</a>
+        </div>
+    </article>
+</section>
+
+<section id="socialsSection">
+    <h2>Retrouvez nous sur Discord et Twitter</h2>
+
+    <div>
+        <a href="" class="buttonGeneric button">Rejoindre Discord <i class="fa-brands fa-discord"></i></a>
+        <a href="" class="buttonGeneric button">Rejoindre Twitter <i class="fa-brands fa-twitter"></i></a>
+    </div>
+</section>
+
+{% endblock %}

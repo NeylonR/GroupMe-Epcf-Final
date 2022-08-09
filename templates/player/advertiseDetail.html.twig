@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Page de détail de l'annonce du joueur {{playerAdvertisement.owner}}, actuellement à la recherche d'un groupe de raid pour le MMORPG Final Fantasy XIV.{% endblock %}
+{% block title %}Annonce de {{playerAdvertisement.owner}}{% endblock %}
+
+{% block body %}
+<section id="advertisementDetail">
+    <article class="detailBanner">
+        <img src="{{vich_uploader_asset(playerAdvertisement, 'bannerFile')}}" alt="Image de bannière" class="bannerImg">
+        <div class="bannerName">
+            <h2>{{playerAdvertisement.owner}}</h2>
+        </div>
+    </article>
+
+    <article class="detailBg">
+        <div class="detailBody">
+            <div class="detailTopInfo">
+                <div>
+                    <ul>
+                        <li>Serveur : {{playerAdvertisement.homeWorld}} ({{playerAdvertisement.homeWorld.dataCenter}})</li>
+                        <li>Joueur {{playerAdvertisement.playerType}}</li>
+                        <li>
+                            <img title="{{playerAdvertisement.language}}" class="iconLanguage" src="{{vich_uploader_asset(playerAdvertisement.language, 'iconFile')}}" alt="Icône du drapeau {{playerAdvertisement.language}}" title="{{playerAdvertisement.language}}"> 
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul>
+                        <li>Ilvl : {{playerAdvertisement.ilvl}}</li>
+                        <li>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            {% for day in playerAdvertisement.day %}
+                                {{day|capitalize}} 
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-clock"></i> {{playerAdvertisement.activityStart|date('H\\Hi')}} à {{playerAdvertisement.activityEnd|date('H\\Hi')}}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul>
+                        <li>
+                            {% if playerAdvertisement.owner.discordTag is not null %}
+                                <i class="fa-brands fa-discord"></i> {{playerAdvertisement.owner.discordTag}}
+                            {% else %}
+                                Tag discord non renseigné.
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if playerAdvertisement.fflogLink is not null %}
+                                <a href="{{playerAdvertisement.fflogLink}}">Lien FFlog</a>
+                            {% else %}
+                                Lien FFlog non renseigné.
+                            {% endif %}                      
+                        </li>
+                        <li>
+                            {% if playerAdvertisement.fflogLink is not null %}
+                                <a href="{{playerAdvertisement.ffxivLink}}">Lien FFXIV</a>
+                            {% else %}
+                                Lien FFXIV non renseigné.
+                            {% endif %}                      
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="detailJob">
+                <h3>Job joué</h3>
+                <div class="jobRoleContainer">
+                {% if containTank %}
+                    <div class="">
+                        <h3>Tank</h3>
+                        <div class="jobIconContainer">  
+                        {% for job in playerAdvertisement.job %}
+                            {% if job.role.label == "Tank" %}
+                                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">
+                            {% endif %}
+                        {% endfor %}
+                        </div>                   
+                    </div>              
+                {% endif %}
+
+                {% if containHealer %}
+                    <div class="">
+                        <h3>Healer</h3>
+                        <div class="jobIconContainer">                      
+                        {% for job in playerAdvertisement.job %}
+                            {% if job.role.label == "Healer" %}
+                                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">                  
+                            {% endif %}    
+                        {% endfor %}
+                        </div> 
+                    </div>           
+                {% endif %}
+
+                {% if containDps %}
+                    <div class="">
+                        <h3>Dps</h3>
+                        <div class="jobIconContainer">                      
+                        {% for job in playerAdvertisement.job %}
+                            {% if job.role.label == "Dps" %}
+                                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">               
+                            {% endif %}  
+                        {% endfor %}
+                        </div> 
+                    </div>              
+                {% endif %}
+
+                </div>
+            </div>
+
+            <div class="detailDescription">
+                {{playerAdvertisement.textContent}}
+            </div>
+
+            <p>Posté par : {{playerAdvertisement.owner}} le {{playerAdvertisement.createdAt|format_datetime('long','short',locale='fr')}}.</p>       
+        </div>
+            {% if isTheOwner == true %}
+            <a href="{{path('app_player_edit', {id : playerAdvertisement.id})}}" class='button buttonPlayer'>Modifier</a>
+
+            <form action="{{ url('app_player_delete', { id: playerAdvertisement.id }) }}" method="post">
+                {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+                <input type="hidden" name="token" value="{{ csrf_token('delete_advertise') }}"/>
+
+                <button class="button buttonDelete" type="submit" onClick="return confirm('Etes vous bien sur de vouloir supprimer votre annonce?');" >Supprimer mon annonce </button>
+            </form>
+            {% endif %}
+            <a href="{{path('app_player_index')}}" class='button buttonPlayer'>Retour</a>
+    </article>
+
+</section>
+{% endblock %}

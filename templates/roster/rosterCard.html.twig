@@ -1,0 +1,71 @@
+<article class="rosterCard">
+    {% if roster.banner is not null %}
+        <img src="{{vich_uploader_asset(roster, 'bannerFile')}}" alt="Image de bannière utilisé par {{roster.owner}}" class="banner">
+    {% else %}
+        <img src="{{asset('images/placeholder.png')}}" alt="Placeholder de bannière pour {{roster.owner}}" class="banner">
+    {% endif %}
+    <div class="rosterCardBody">
+    <h3 class="rosterName">{{roster.rosterName}}</h3>
+
+    <p class="rosterDataCenter"><img class="icon" src="{{asset('/images/icon/crystalIcon.png')}}" alt="Icône du crystal d'Hydealyn de Final Fantasy XIV">{{roster.dataCenter}}</p>
+
+    <div class="rosterJobContainer">
+        <p class="smallText">Cliquez sur un role pour afficher les détails</p>
+
+        <div class="role">
+        {% set containTank = false %}
+        {% set containHealer = false %}
+        {% set containDps = false %}
+        {% for job in roster.job.snapshot %}
+            {% if job.role.label == 'Tank' %}
+                {% set containTank = true %}
+            {% elseif job.role.label == 'Healer' %}
+                {% set containHealer = true %}
+            {% elseif job.role.label == 'Dps' %}
+                {% set containDps = true %}
+            {% endif %}
+        {% endfor %}
+            {% if containTank %}
+                <img src="{{asset('images/icon/tank.png')}}" alt="Icône du rôle de Tank dans Final Fantasy XIV" class="icon" data-role="tank" title="Tank">
+            {% endif %}
+
+            {% if containHealer %}
+                <img src="{{asset('images/icon/healer.png')}}" alt="Icône du rôle de Soigneur dans Final Fantasy XIV" class="icon" data-role="healer" title="Healer">
+            {% endif %}
+            
+            {% if containDps %}
+                <img src="{{asset('images/icon/dps.png')}}" alt="Icône du rôle du Dps dans Final Fantasy XIV" class="icon" data-role="dps" title="Dps">
+            {% endif %}
+        </div>
+
+        <div class="jobContainer jobTank" data-status="hidden" data-role="tank">
+        {% for job in roster.job %}
+            {% if job.role.label == "Tank" %}
+                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="jobContainer jobHealer" data-status="hidden" data-role="healer">
+        {% for job in roster.job %}
+            {% if job.role.label == "Healer" %}
+                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="jobContainer jobDps" data-status="hidden" data-role="dps">
+        {% for job in roster.job %}
+            {% if job.role.label == "Dps" %}
+                <img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV" title="{{job.label}}">
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+
+    <p class="rosterType">Roster {{roster.rosterType}}</p>
+    <p class="rosterLanguage">
+        <img class="iconLanguage" src="{{vich_uploader_asset(roster.language, 'iconFile')}}" alt="Icône du drapeau {{roster.language}}" title="{{roster.language}}">
+    </p>    
+    </div>
+
+    <a href="{{path('app_roster_detail', {id : roster.id})}}" class="button buttonRoster">Lire plus <i class="fa-solid fa-arrow-right"></i></a>
+</article>

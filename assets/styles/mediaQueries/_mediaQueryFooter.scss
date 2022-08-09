@@ -1,0 +1,32 @@
+@media screen and(max-width: 930px){
+    footer{
+        padding: 3em 2em;
+        @include flex(center, column, center);
+        gap: 2em;
+    }
+}
+
+@media screen and(max-width: 480px){
+    footer{
+        .mainListContainer{
+            @include flex(flex-start, column, flex-start);
+            a{
+                font-size: 16px;
+            }
+            li{
+                padding-bottom: .3em;
+            }
+
+            .ulTitle{
+                padding-bottom: .8em;
+            }
+        }
+
+        .socialsListContainer{
+            width: 149px;
+            .socialsList{
+                @include flex(flex-start);
+            }
+        }
+    }
+}

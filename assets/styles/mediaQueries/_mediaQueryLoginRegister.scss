@@ -1,0 +1,37 @@
+@media screen and(max-width: 1000px){
+    #registerSection{
+        background: linear-gradient(90deg, rgba(0,0,0,.7) 0%,rgba(0,0,0,.7) 100%), url('../../../public/images/background/login_register_bg.png') fixed no-repeat;
+        background-size: cover;
+    }
+    #loginSection{
+        background: linear-gradient(270deg, rgba(0,0,0,.7) 0%,rgba(0,0,0,.7) 100%), url('../../../public/images/background/login_register_bg.png') fixed no-repeat;
+        background-size: cover;
+    }
+    #registerSection, #loginSection{
+        padding: 0 .5em;
+        h1,p{
+            text-align: center;
+        }
+        @include flex(center);
+        form{
+            @include flex(center, column, center);
+            div{
+                @include flex(center, column, center);
+                text-align: center;
+            }
+        }
+    }
+}
+
+// @media screen and(max-width: 700px){
+//     #registerSection, #loginSection{
+//         padding: 0 .5em;
+//         h1,p{
+//             text-align: center;
+//         }
+//         @include flex(center);
+//         form{
+//             @include flex(center, column, center);
+//         }
+//     }
+// }

@@ -1,0 +1,25 @@
+@media screen and(max-width: 600px){
+    #profileSection{
+        .avatarAndAdvertisementContainer{
+            width: 95%;
+        }
+        .modifyInfoContainer{
+            @include flex($direction:column);
+            .otherInforContainer{
+                width: 95%;
+
+                .divForm{
+                    @include flex();
+
+                    form{
+                        @include flex(center, column);
+                        .inputContainer{
+                            @include flex(center, column);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

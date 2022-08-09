@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Retrouvez la liste des joueurs étant activement à la recherche d'un groupe afin de pouvoir raid efficacement sur le MMORPG Final Fantasy XIV.{% endblock %}
+{% block title %}Joueurs cherchant un groupe.{% endblock %}
+
+{% block body %}
+
+<section id="advertisementIndexBannerSection" class="topPageBanner">
+    <h1>Recherche de joueur</h1>
+    <article>
+        <p>Il y a actuellement {{numberOfAdvertisement}} joueurs qui sont disponible et à la recherche d'un roster.</p>
+        <p>Triez les annonces afin de trouver des joueurs qui vous correspondent.</p>
+    </article>
+    
+    {% if ownAnAdvertise %}
+        <a href="{{path('app_player_edit', {id : user.playerAdvertisement.id})}}" class='button buttonPlayer'>Modifier mon annonce</a>
+        <a href="{{path('app_player_detail', {id : user.playerAdvertisement.id})}}" class="button buttonPlayer">Voir mon annonce</a>
+    {% else %}
+         <a href="{{path('app_player_create')}}" class="button buttonPlayer">Créer une annonce</a>
+    {% endif %}
+</section>
+
+<section id="advertisementIndexCardSection">
+    <article class="filter" data-size="shrink">
+    <div class='helperContainerFilter'>
+        <h2>Filtres : </h2>
+        <span class="helpText">Cliquez pour afficher les filtres.</span>
+        <span class="filterDeploy"><i class="fa-solid fa-arrow-down"></i></span>
+    </div>
+    {{form_start(form, {'attr' : {'class' : 'filterForm'} })}}
+        <div class="divForm">
+            {{form_label(form.homeWorld, 'Serveur')}}
+            {{form_widget(form.homeWorld)}}
+        </div>
+        <div class="divForm">
+            {{form_label(form.gamingType, 'Type de joueur')}}
+            {{form_widget(form.gamingType)}}
+        </div>
+        <div class="divForm">
+            {{form_label(form.language, 'Langue')}}
+            {{form_widget(form.language)}}
+        </div>
+        <div class="divForm">
+            {{form_label(form.ilvl, 'Ilvl minimum')}}
+            {{form_widget(form.ilvl)}}
+        </div>
+        <div class="dayForm">
+            <p>Jours d'activité</p>
+            <div class="dayContainer">
+                {% for day in form.day %}
+                    <div>
+                        <label class="inputLabel" for="{{day.vars.id}}">
+                        {{ form_widget(day)}}
+                        <span>{{day.vars.label}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="jobForm">
+            <p>Job</p>
+            <div class="jobContainer" id="player_advertisement_job">
+                <div class="jobRoleContainer">
+                    <h3>Tank</h3>
+                    <div class="jobIconContainer">  
+                    {% for job in jobs %}                  
+                    {% if job.role.label == "Tank" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if app.request.get('player_advertisement').job is defined and job.id in app.request.get('player_advertisement').job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV"></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    </div>                   
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Healer</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Healer" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if app.request.get('player_advertisement').job is defined and job.id in app.request.get('player_advertisement').job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV"></span>
+                            </label>
+                        </div>                    
+                    {% endif %}    
+                    {% endfor %}
+                    </div> 
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Dps</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Dps" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if app.request.get('player_advertisement').job is defined and job.id in app.request.get('player_advertisement').job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt="Icône du job {{job.label}} dans Final Fantasy XIV"></span>
+                            </label>
+                        </div>                    
+                    {% endif %}  
+                    {% endfor %}
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="divForm" id="buttonDiv">
+            {{form_widget(form.submit)}}
+            <span class="button buttonPlayer reset">Reinitialiser</span>
+        </div>
+    {{form_end(form)}}
+    </article>
+
+    <div class="listCardContainer">
+        {% for player in playerAdvertisement %}
+            {% include "player/playerCard.html.twig" %}
+        {% endfor %}
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(playerAdvertisement, 'pagination.html.twig') }}
+    </div>
+
+</section>
+{% endblock %}
+
+{# Js pour le filtre et les cartes #}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('index') }}
+{% endblock %}                

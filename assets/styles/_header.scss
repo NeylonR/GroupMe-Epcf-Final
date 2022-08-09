@@ -1,0 +1,88 @@
+header{
+    @include flex(space-between);
+    background-color: $darkColor;
+    padding: .6em 1em;
+
+    nav{
+        @include flex(space-between, $wrap:nowrap);
+        width: 50%;
+
+        ul{
+            @include flex();
+            gap: 1.5em;
+        }
+        a{
+            color:white;
+        }
+
+        .mainNavUl{
+            transform: translateX(-50%);
+        }
+
+        // White line under button when hover
+        li{
+            display: inline;
+            position: relative;
+            &::after{
+                content: '';
+                position: absolute;
+                height: 3px;
+                width: 100%;
+                background-color: white;
+                border-radius: 50px;
+                top: 100%;
+                left: 0;
+                transform-origin: 100% 50%;
+                transform: scale3d(0, 1, 1);
+                transition: transform .3s;
+            }
+    
+            &:hover::after{
+                transform-origin: 0% 50%;
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        #closeButton{
+            display: none;
+        }
+    }
+
+    #burgerButton {
+        display: none;
+        height: 25px;
+        z-index: 5;
+        cursor:  pointer;
+        @include transi;
+    }
+    
+    #burger::after, #burger::before {
+        content: "";
+        position: absolute;
+        display: inline-block;
+    }
+    
+    #burger {
+        position: relative;
+        display: inline-block;
+        @include transi(.5s);
+    }
+    
+    #burger, #burger::after, #burger::before {
+        width: 2em;
+        height: .3em;
+        background-color: white;
+        border-radius: 10px;
+        @include transi(.5s);
+    }
+    
+    #burger::after {
+        top: -10px;
+        left: 0;
+    }
+    
+    #burger::before {
+        top: 10px;
+        left: 0;
+    }
+}

@@ -1,0 +1,121 @@
+.playerIcon, .rosterIcon{
+    width: 100px;
+    height: 100px;
+}
+
+#bannerSection{
+    @include flex(space-between, column);
+    position: relative;
+    min-height: 80vh;
+    background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%,rgba(0,0,0,.4) 100%), url('../../public/images/background/home_bg.jpg') fixed no-repeat;
+    background-size: cover;
+    padding: 4em 2em 0 2em;
+    margin-bottom: 10em;
+
+
+    article{
+        font-size: 20px;
+        font-family: "myriadBold";
+        color: white;
+        text-align: center;
+        margin-top: -4em;
+
+        p{
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.253);
+        }
+    }
+
+    .anchorCardContainer{
+        @include flex(space-between);
+        transform: translateY(50%);
+        width: 50%;
+        min-width: 600px;
+    }
+
+    .anchorCard{
+        @include flex(center, column);
+        position: relative;
+        padding: 2.5em;
+        border-radius: 7px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.253);
+        background-color: white;
+
+        .icon{
+            margin-bottom: 1em
+        }
+
+        .arrowAnchor{
+            @include flex();
+            @include transi();
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            background-color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 100%;
+            color: black;
+            font-size: 20px;
+
+            &:hover{
+                transform: translate(-50%, 60%);
+                -moz-transform: translate(-50%, 60%);
+            }
+        }
+    }
+
+}
+
+#informationSection{
+    @include flex(center, column, flex-start);
+    max-width: 80%;
+    min-width: 900px;
+    margin: 0 auto;
+    padding: 2em 0;
+
+    .informationContainer{
+        @include flex();
+        gap: 1em;
+        width: 100%;
+        padding: 4em 2em;
+    }
+
+    .textContainer{
+        @include flex(flex-start, column, flex-start);
+        max-width: 620px;
+        h2{
+            margin-bottom: .8em;
+        }
+        p{
+            padding-bottom: 1em;
+        }
+    }
+
+    .buttonContainer{
+        @include flex(flex-start, column, flex-start);
+        gap: 2em;
+        align-self: end;
+        a{
+            display: inline-block;
+        }
+    }
+}
+
+#socialsSection{
+    @include flex(space-around, column);
+    background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%,rgba(0,0,0,.4) 100%), url('../../public/images/background/socials_bg.jpeg') fixed no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 4em 2em;
+    height: 300px;
+
+    h2{
+        text-align: center;
+    }
+    div{
+        @include flex();
+        gap: 2em;
+    }
+}

@@ -1,0 +1,29 @@
+<header>
+    <a href="{{path('app_home')}}" class="logo"><img src="{{asset('images/logo.svg')}}" alt="Logo de GroupMe, trouver des joueurs et des rosters pour le mmorpg Final Fantasy XIV" ></a>
+    <nav>
+        <span id="closeButton"><i class="fa-solid fa-square-xmark"></i></span>
+        <ul class="mainNavUl">
+            <li><a href="{{path('app_home')}}">Accueil</a></li>
+            <li><a href="{{path('app_roster_index')}}">Rosters</a></li>
+            <li><a href="{{path('app_player_index')}}">Joueurs</a></li>
+        </ul>
+
+        {% if app.user != true %}
+        <ul>
+            <li><a href="{{path('app_login')}}">Connexion</a></li>
+            <li><a href="{{path('app_register')}}">Inscription</a></li>
+        </ul>
+        {% endif %}
+
+        {% if app.user == true %}
+        <ul>
+            <li><a href="{{path('app_profil')}}">Profil</a></li>
+            <li><a href="{{path('app_logout')}}">Deconnexion</a></li>
+        </ul>
+        {% endif %}
+    </nav>
+
+    <div id="burgerButton">
+        <span id="burger"></span>
+    </div>
+</header>

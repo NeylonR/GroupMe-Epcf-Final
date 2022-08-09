@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Créer une annonce de recherche de joueurs qui sera ensuite visible, pour tous les visiteurs, sur notre page d'index.{% endblock %}
+{% block title %}Création d'annonce de recherche de joueurs.{% endblock %}
+
+{% block body %}
+
+<section id="createBannerSection" class="topPageBanner">
+    <h1>Creation d’annonce</h1>
+</section>
+
+<section id="createAdvertiseSection">
+<article class="createAdvertiseContainer">
+    {% if ownAnAdvertise == true %}
+        <h3 class="error">Vous avez déjà une <a href="{{path('app_roster_detail', {id: app.user.recruitAdvertisement.id})}}">annonce</a>, vous ne pouvez pas en créer une autre.</h3>
+
+        {% else %}
+    {{ form_start(form, {'attr': {'class': 'createForm rosterForm'}})}}
+        <div class="divForm">
+            {{form_label(form.rosterName, 'Nom du roster (4-60 caractères')}}
+            {{form_widget(form.rosterName)}}
+            {{form_errors(form.rosterName)}}
+            {{form_help(form.rosterName)}}
+        </div>
+        <div class="divForm">
+            {{form_widget(form.dataCenter)}}
+            {{form_errors(form.dataCenter)}}
+        </div>
+
+        <div class="divForm">
+            {{form_widget(form.language)}}
+            {{form_errors(form.language)}}
+            {{form_help(form.language)}}
+        </div>
+
+        <div class="divForm">
+            {{form_widget(form.rosterType)}}
+            {{form_errors(form.rosterType)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.ilvl, 'Ilvl minimum (500 à 650)')}}
+            {{form_widget(form.ilvl)}}
+            {{form_errors(form.ilvl)}}
+        </div>
+
+        <div class="dayForm">
+            <p>Jours d'activité</p>
+            <div class="dayContainer">
+                {% for day in form.day %}
+                    <div>
+                        <label class="inputLabel" for="{{day.vars.id}}">
+                        {{ form_widget(day)}}
+                        <span>{{day.vars.label}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+                {{form_errors(form.day)}}
+            </div>
+        </div>
+
+        <div class="divForm">
+            <p>Heures d'activité</p>
+            {{form_label(form.activityStart, 'Début')}}
+            {{form_widget(form.activityStart)}}
+
+            {{form_label(form.activityEnd, 'Fin')}}
+            {{form_widget(form.activityEnd)}}
+
+            {{form_errors(form.activityStart)}}
+            {{form_errors(form.activityEnd)}}
+        </div>
+
+        <div class="divForm">
+            <p>Bannière de l'annonce</p>
+            <p class="smallText">2024k maximum, formats accepté : png/jpg/jpeg</p>
+            <label id="uploadButton" for="recruit_advertisement_bannerFile_file">
+            {{ form_widget(form.bannerFile, {'attr': {'required' : 'required'}}) }}
+            <span>Choisir un fichier</span>
+            <p>Aucun fichier choisi</p>
+            </label>
+            {{form_errors(form.bannerFile)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.textContent, 'Description de votre annonce (20-500 caractères)')}}
+            {{form_widget(form.textContent)}}
+            {{form_errors(form.textContent)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.fflogLink, 'Lien FFLog (optionnel)')}}
+            <p class="smallText">Ex : https://www.fflogs.com/character/id/code</p>
+            {{form_widget(form.fflogLink)}}
+            {{form_errors(form.fflogLink)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.discordServerLink, 'Votre serveur discord (optionnel)')}}
+            <p class="smallText">Ex : https://discord.gg/code</p>
+            {{form_widget(form.discordServerLink)}}
+            {{form_errors(form.discordServerLink)}}
+        </div>
+
+        <div class="jobForm">
+            <p>Job</p>
+            <div class="jobContainer" id="recruit_advertisement_job">
+                <div class="jobRoleContainer">
+                    <h3>Tank</h3>
+                    <div class="jobIconContainer">  
+                    {% for job in jobs %}                  
+                    {% if job.role.label == "Tank" %}
+
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="recruit_advertisement_job_{{job.id}}">
+                            <input type="checkbox" id="recruit_advertisement_job_{{job.id}}" name="recruit_advertisement[job][]" value="{{job.id}}">
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    </div>                   
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Healer</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Healer" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="recruit_advertisement_job_{{job.id}}">
+                            <input type="checkbox" id="recruit_advertisement_job_{{job.id}}" name="recruit_advertisement[job][]" value="{{job.id}}">
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>                    
+                    {% endif %}    
+                    {% endfor %}
+                    </div> 
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Dps</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Dps" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="recruit_advertisement_job_{{job.id}}">
+                            <input type="checkbox" id="recruit_advertisement_job_{{job.id}}" name="recruit_advertisement[job][]" value="{{job.id}}">
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>                    
+                    {% endif %}  
+                    {% endfor %}
+                    </div> 
+                </div>
+            </div>
+        {% if errorJob is defined %}
+            <p class="error">{{errorJob}}</p>
+        {% endif %}
+        </div>
+    {% if app.user.recruitAdvertisement is empty %}
+        <div class="divForm">
+            {{form_widget(form.submit)}}
+        </div>
+    {% endif %}
+        
+    {{ form_errors(form) }}
+    {{ form_end(form) }}
+    {% endif %}
+    
+</article>
+</section>
+
+{% endblock %}
+
+{# Js pour l'upload d'image ( affichage du nom du fichier lors du choix ) #}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('uploadImgStyle') }}
+{% endblock %}                

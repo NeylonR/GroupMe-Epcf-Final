@@ -1,0 +1,28 @@
+@mixin flex ( $just : center, $direction : row, $align : center, $wrap : nowrap) {
+    display: flex;
+    justify-content: $just;
+    align-items: $align;
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+}
+  
+@mixin transi($time : .3s) {
+  transition: all $time ease-in-out;
+}
+
+$rosterColor: #919EF7;
+$playerColor: #FF8D39;
+$darkColor: #303030;
+$genericButtonColor: #5865F2;
+$deleteColor: #AA1414;
+// #D11A2A
+$titleLinearColor: #FFDF9C;
+$titleLinearCenterColor: #9E7867;
+
+$twitterColor : #31a4f1;
+$websiteColor : black;
+
+$primaryColor: #154854;
+$secondaryColor: #4D4C7D;
+$thirdColor: #4C69B3;
+$fourthColor: #F9FDFF;

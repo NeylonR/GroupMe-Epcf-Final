@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Inscrivez vous sur GroupMe pour pouvoir créer et modifier vos annonces de recherche de groupe et/ou recrutement de joueurs pour le MMORPG Final Fantasy XIV.{% endblock %}
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<section id="registerSection">
+    <article class="registerForm">
+        <h1>Creer un nouveau compte</h1>
+        <p>Déjà membre ? <a href="{{path('app_login')}}">Connexion</a></p>
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.name)  }}
+            {{ form_row(registrationForm.email)  }}
+            {{ form_row(registrationForm.password.first)}}
+            {{ form_row(registrationForm.password.second)}}
+
+            <button type="submit" class="button buttonGeneric">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+{% block metaDescription %}Modifier votre annonce de recherche de groupe qui sera ensuite actualisé et visible, pour tous les visiteurs, sur notre page d'index.{% endblock %}
+{% block title %}Modification de votre annonce.{% endblock %}
+
+{% block body %}
+
+<section id="createBannerSection" class="topPageBanner">
+    <h1>Modification d’annonce</h1>
+</section>
+
+<section id="createAdvertiseSection">
+<article class="createAdvertiseContainer">
+    {{ form_start(form, {'attr': {'class': 'createForm'}})}}
+    
+        <div class="divForm">
+            {{form_widget(form.homeWorld)}}
+            {{form_errors(form.homeWorld)}}
+        </div>
+
+        <div class="divForm">
+            {{form_widget(form.language)}}
+            {{form_errors(form.language)}}
+        </div>
+
+        <div class="divForm">
+            {{form_widget(form.playerType)}}
+            {{form_errors(form.playerType)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.ilvl, 'Votre Ilvl (500 à 650)')}}
+            {{form_widget(form.ilvl)}}
+            {{form_errors(form.ilvl)}}
+        </div>
+
+        <div class="dayForm">
+            <p>Jours d'activité</p>
+            <div class="dayContainer">
+                {% for day in form.day %}
+                    <div>
+                        <label class="inputLabel" for="{{day.vars.id}}">
+                        {{ form_widget(day)}}
+                        <span>{{day.vars.label}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+                {{form_errors(form.day)}}
+            </div>
+        </div>
+
+        <div class="divForm">
+            <p>Heures d'activité</p>
+            {{form_label(form.activityStart, 'Début')}}
+            {{form_widget(form.activityStart)}}
+
+            {{form_label(form.activityEnd, 'Fin')}}
+            {{form_widget(form.activityEnd)}}
+
+            {{form_errors(form.activityStart)}}
+            {{form_errors(form.activityEnd)}}
+        </div>
+
+        <div class="divForm">
+            <p>Bannière de l'annonce</p>
+            <p class="smallText">2024k maximum, formats accepté : png/jpg/jpeg</p>
+            {% if playerAdvertisement.banner is not null %}
+                <img src="{{vich_uploader_asset(playerAdvertisement, 'bannerFile')}}" alt="Image de bannière utilisé par {{playerAdvertisement.owner.name}}" class="bannerImg">
+            {% endif %}
+
+            <label id="uploadButton" for="player_advertisement_bannerFile_file">
+            {{form_widget(form.bannerFile.file)}}
+            <span>Choisir un fichier</span>
+            <p>Aucun fichier choisi</p>
+            </label>
+
+            {{form_errors(form.bannerFile)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.textContent, 'Description de votre annonce (20-500 caractères)')}}
+            {{form_widget(form.textContent)}}
+            {{form_errors(form.textContent)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.fflogLink, 'Lien FFLog (optionnel)')}}
+            <p class="smallText">Ex : https://www.fflogs.com/character/id/code</p>
+            {{form_widget(form.fflogLink)}}
+            {{form_errors(form.fflogLink)}}
+        </div>
+
+        <div class="divForm">
+            {{form_label(form.ffxivLink, 'Lien FFXIV (optionnel)')}}
+            <p class="smallText">Ex : https://eu.finalfantasyxiv.com/lodestone/character/0123456/</p>
+            {{form_widget(form.ffxivLink)}}
+            {{form_errors(form.ffxivLink)}}
+        </div>
+
+        <div class="jobForm">
+            <p>Job</p>
+            <div class="jobContainer" id="player_advertisement_job">
+                <div class="jobRoleContainer">
+                    <h3>Tank</h3>
+                    <div class="jobIconContainer">  
+                    {% for job in jobs %}                  
+                    {% if job.role.label == "Tank" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if job in playerAdvertisement.job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    </div>                   
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Healer</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Healer" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if job in playerAdvertisement.job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>                    
+                    {% endif %}    
+                    {% endfor %}
+                    </div> 
+                </div>
+
+                <div class="jobRoleContainer">
+                    <h3>Dps</h3>
+                    <div class="jobIconContainer">                      
+                    {% for job in jobs %}
+                    {% if job.role.label == "Dps" %}
+                        <div>
+                            <label class="inputLabel inputLabelJob" for="player_advertisement_job_{{job.id}}">
+                            {% if job in playerAdvertisement.job %}
+                                <input checked type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% else %}
+                                <input type="checkbox" id="player_advertisement_job_{{job.id}}" name="player_advertisement[job][]" value="{{job.id}}">
+                            {% endif %}
+                            <span><img class="iconJob" src="{{vich_uploader_asset(job, 'iconFile')}}" alt=""></span>
+                            </label>
+                        </div>                    
+                    {% endif %}  
+                    {% endfor %}
+                    </div> 
+                </div>
+            </div>
+        {% if errorJob is defined %}
+            <p class="error">{{errorJob}}</p>
+        {% endif %}
+        </div>
+
+        <div class="divForm">
+            {{form_widget(form.submit, { 'label' : 'Modifier'})}}
+        </div>
+        
+    {{ form_errors(form)}}
+    {{ form_end(form) }}
+</article>
+</section>
+
+{% endblock %}
+
+{# Js pour l'upload d'image ( affichage du nom du fichier lors du choix ) #}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('uploadImgStyle') }}
+{% endblock %}                

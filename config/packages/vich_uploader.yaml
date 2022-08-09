@@ -1,0 +1,33 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        avatar_user:
+            uri_prefix: /images/avatar_user
+            upload_destination: '%kernel.project_dir%/public/images/avatar_user'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+        banner_player:
+            uri_prefix: /images/banner_player
+            upload_destination: '%kernel.project_dir%/public/images/banner_player'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+        banner_roster:
+            uri_prefix: /images/banner_roster
+            upload_destination: '%kernel.project_dir%/public/images/banner_roster'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+        job_icon:
+            uri_prefix: /images/job_icon
+            upload_destination: '%kernel.project_dir%/public/images/job_icon'
+            delete_on_update: true
+            delete_on_remove: true
+        language_icon:
+            uri_prefix: /images/language_icon
+            upload_destination: '%kernel.project_dir%/public/images/language_icon'
+            delete_on_update: true
+            delete_on_remove: true
+

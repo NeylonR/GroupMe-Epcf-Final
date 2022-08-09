@@ -1,0 +1,78 @@
+@media screen and(max-width: 970px){
+    #informationSection{
+        min-width: 310px;
+        max-width: 90%;
+        .informationContainer{
+            @include flex(flex-start, column);
+            gap: 1em;
+            width: 100%;
+            padding: 2em;
+
+            &:first-of-type{
+                position: relative;
+
+                &::after{
+                    content: '';
+                    width: 80%;
+                    height: 1px;
+                    background: rgba(0, 0, 0, 0.4);
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+
+            &:last-of-type{
+                margin-bottom: 3em;
+            }
+        }
+
+        .textContainer{
+            @include flex(center, column, center);
+            h2{
+                text-align: center;
+            }
+        }
+
+        .buttonContainer{
+            align-self: center;
+        }
+    }
+}
+
+@media screen and(max-width: 700px){
+    #bannerSection{
+        @include flex(flex-start, column);
+        margin-bottom: 35em;
+        padding: 4em 1em;
+        position: relative;
+        .logo{
+            display: none;
+        }
+        article{
+            margin-top: 0;
+        }
+        .anchorCardContainer{
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            @include flex(center, column, center);
+            gap: 6em;
+            transform: translate(-50%, calc(75% + 3em));
+            width: 90%;
+            min-width: auto;
+        }
+    }
+}
+
+@media screen and(max-width: 600px){
+    #socialsSection{
+        padding: 4em 1em;
+        div{
+            @include flex(center, column);
+            padding: 2em 0;
+            gap: 2em;
+        }
+    }
+}

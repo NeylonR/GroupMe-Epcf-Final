@@ -1,0 +1,671 @@
+#createAdvertiseSection{
+    background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%,rgba(0,0,0,.4) 100%), url('../../public/images/background/create_bg.jpeg') fixed no-repeat;
+    background-size: cover;
+    padding: 4em 0;
+    min-height: 65vh;
+
+    article{
+        margin: 0 auto;
+        width: 80%;
+        border-radius: 10px;
+        // background-color: rgba(255, 255, 255, 0.8);
+        // backdrop-filter: blur(20px);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2em 3em;
+        max-width: 900px;
+    }
+
+    // if navigator support backdrop
+    @supports ((-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))) {
+        article {
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    }
+    input[type='file']{
+        display: none;
+    }
+    label#uploadButton{
+        @include transi();
+        @include flex(flex-start, column, flex-start);
+
+        span:first-of-type{
+            font-family: 'myriadBold';
+            border-radius: 7px;
+            font-size: 16px;
+            color:black;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.253);
+            cursor: pointer;
+            padding: .75em;
+            margin-bottom: 1em;
+            background-color: $genericButtonColor;
+        }
+    }
+
+    .createForm{
+        select, input, textarea{
+            padding: .75em;
+            font-family: 'myriadBold';
+            font-size: 16px;
+            border-radius: 7px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+            background-color: #FCFCFC;
+            border: 2px solid transparent;
+        }
+    
+        .divForm, .dayForm, .jobForm{
+            @include flex(flex-start, column, flex-start);
+            padding: 2em 0;
+            position: relative;
+            &:not(:last-of-type)::after{
+                content: '';
+                position: absolute;
+                height: 1px;
+                width: 50%;
+                min-width: 300px;
+                background-color: black;
+                bottom: 0;
+                left: 0;
+            }
+    
+            label, p{
+                padding-bottom: .5em;
+                font-family: 'myriadBold';
+            }
+
+            .smallText{
+                font-size: 14px;
+                font-family: myriad;
+            }
+    
+            input[type=time]:first-of-type{
+                margin-bottom: 2em;
+            }
+
+            .bannerImg{
+                width: 100%;
+                max-width: 500px;
+                max-height: 400px;
+                object-fit: cover;
+                margin-bottom: 1em;
+            }
+        }
+
+        button[type='submit']{
+            margin: 0 auto;
+        }
+    
+        .dayContainer{
+            @include flex(flex-start);
+            flex-wrap: wrap;
+            padding: 1em 0;
+            gap: 1em;
+        }
+    
+        textarea{
+            font-family: 'myriad';
+            width: 80%;
+            min-width: 220px;
+            resize: vertical;
+        }
+    
+        .jobRoleContainer{
+            @include flex(flex-start, column, flex-start, wrap);
+            padding-bottom: 2em;
+            h3{
+                padding-bottom: 1em;
+            }
+        }
+    
+        .jobIconContainer{
+            @include flex(flex-start);
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+        // pour les form_errors
+        ul li{
+            padding-top: .5em;
+            color: $deleteColor;
+            font-family: myriadBold;
+        }
+    }
+
+    //filter tags
+    .inputLabel {
+        position: relative;
+        display: inline-block;
+
+        input {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        }
+
+        span {
+            @include transi();
+            cursor: pointer;
+            padding: .3em .5em;
+            border-radius: 0px;
+            border: 1px solid black;
+            background-color: transparent;
+            color: black;
+            text-transform: capitalize;
+        }
+
+        input:checked + span {
+            border: 1px solid $genericButtonColor;
+            color: $genericButtonColor;
+        }
+    }
+
+    .inputLabelJob{
+        @include flex();
+        padding: 0;
+
+        span {
+            border-radius: 7px;
+            border: 1px solid transparent;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+            background-color: transparent;
+        }
+
+        input:checked + span {
+            border: 1px solid $genericButtonColor;
+            background-color: $genericButtonColor;
+        }
+    }
+
+    input:focus, select:focus, textarea:focus{
+        border: 2px $genericButtonColor solid;
+    }
+
+    .rosterForm{
+        input:focus, select:focus, textarea:focus{
+            border: 2px $rosterColor solid;
+        }
+        // .inputLabel{
+        //     input:checked + span {
+        //         border: 1px solid $genericButtonColor;
+        //         color: $genericButtonColor;
+        //     }
+        // }
+        // .inputLabelJob{
+        //     input:checked + span {
+        //         border: 1px solid $rosterColor;
+        //         background-color: $rosterColor;
+        //     }
+        // }
+    }
+}
+
+#createBannerSection{
+    background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%,rgba(0,0,0,.5) 100%), url('../../public/images/background/create_banner_bg.png') fixed no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    min-height: 20vh;
+}
+#advertisementDetail{
+    .detailBanner{
+        height: 70vh;
+        @include flex(center, column, center);
+        position: relative;
+
+        img{
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+
+        .bannerName{
+            position: absolute;
+            bottom: 0;
+            padding: 1.3em 2em;
+            background-color: white;
+            border-radius: 7px;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.418);
+            max-width: 80%;
+            transform: translateY(50%);
+            text-align: center;
+            word-wrap: break-word;
+        }
+    }
+
+    .detailBg{
+        background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%,rgba(0,0,0,.4) 100%), url('../../public/images/background/detail_bg.jpg') fixed no-repeat;
+        background-size: cover;
+        padding: 6em 0em;
+        @include flex($direction : column);
+        gap: 3em;
+    }
+    
+    .detailBody{
+        @include flex(center, column, center);
+        border-radius: 7px;
+        background-color: rgba(255, 255, 255, 0.9);
+        // -webkit-backdrop-filter: blur(18px);
+        width: 90%;
+        max-width: 1100px;
+        padding: 2em;
+    }
+    // if navigator support backdrop
+    @supports ((-webkit-backdrop-filter: blur(18px)) or (backdrop-filter: blur(18px))) {
+        .detailBody {
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            background-color: rgba(255, 255, 255, 0.671);
+        }
+    }
+
+    .detailTopInfo{
+        // @include flex();
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 80%;
+        
+        div{
+            padding: 2em 2em 2em 2em;
+        }
+
+        div:not(:last-of-type){
+            border-right: 1px black solid;
+        }
+
+        div:nth-child(2){
+            text-align: center;
+            padding: 2em 1em;
+        }
+
+        li{
+            padding-bottom: 1em;
+        }
+    }
+
+    .detailJob{
+        border-top: 3px black solid;
+        border-bottom: 3px black solid;
+        width: 80%;
+        padding: 2em 0;
+
+        h3{
+            text-align: center;
+            margin-bottom: 1em;
+        }
+    }
+
+    .jobRoleContainer{
+        @include flex(space-between, row, flex-start);
+        gap: 1em;
+        &>div{
+            flex: 1;
+        }
+    }
+
+    .jobIconContainer{
+        @include flex();
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+
+    .detailDescription{
+        width: 80%;
+        padding: 2em 0;
+    }
+}
+
+#advertisementIndexBannerSection{
+    @include flex(center, column);
+    gap: 2em;
+    min-height: 30vh;
+    background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%,rgba(0,0,0,.5) 100%), url('../../public/images/background/index_banner_bg.png') fixed no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 3em 2em;
+    // margin-bottom: 10em;
+    text-align: center;
+    p{
+        color:white;
+        font-family: "myriadBold";
+        font-size: 20px;
+    }
+}
+#advertisementIndexCardSection{
+    @include flex(center, column);
+    background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%,rgba(0,0,0,.4) 100%), url('../../public/images/background/index_bg.png') fixed no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 4em 0;
+    min-height: 65vh;
+
+    .filter[data-size='shrink']{
+        max-height: 2em;
+        overflow: hidden;
+        cursor: pointer;
+        .helperContainerFilter{
+            left: 0;
+            transform: translateY(-50%);
+            @include flex(space-between, row, center, wrap);
+            width: 100%;
+        }
+
+        form{
+            transform: translateY(50%);
+        }
+    }
+
+    .filter[data-size='grow']{
+        max-height: 2000px;
+        padding: 3em 2em 2em;
+        overflow: hidden;
+        cursor: auto;
+        .helperContainerFilter{
+            @include transi(.5s);
+            position: absolute;
+            top: 2em;
+            transform: translateY(calc(-50% - .5em));
+            @include flex(space-between, row, center, wrap);
+            width: 100%;
+        }
+        form{
+            transform: translateY(0);
+        }
+        .helpText{
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        .filterDeploy i{
+            @include transi();
+            transform: rotate(180deg);
+            transform-origin: center center;
+        }
+        .filterDeploy{
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+    }
+    .filter{
+        transition: max-height 2s ease-in-out, padding-top 1s ease-in-out;
+        position: relative;
+        width: 90%;
+        max-width: 1200px;
+        background-color: rgba(255, 255, 255, 0.9);
+        // backdrop-filter: blur(18px);
+        padding: 2em;
+        border-radius: 7px;
+
+        .filterDeploy{
+            @include transi();
+            // position: absolute;
+            // top: 50%;
+            // right: 0;
+            // transform: translate(-50%, -50%); 
+            font-size: 24px;
+            cursor: pointer;
+        }
+        form{
+            @include transi(1s);
+            @include flex(flex-start, row, flex-start, wrap);
+            gap: 1em;
+            .dayForm{
+                width: 100%;
+                padding: 1em 0;
+                p{
+                    font-family: 'myriadBold';
+                    font-size: 16px;
+                    padding-bottom: 1em;
+                }
+            }
+            .dayForm .dayContainer{
+                @include flex(flex-start);
+                flex-wrap: wrap;
+                gap: 1em;
+            }
+            .divForm{
+                @include flex(flex-start, column, flex-start);
+                label{
+                    font-family: 'myriadBold';
+                    font-size: 16px;
+                    padding-bottom: .2em;
+                }
+            }
+            .divForm:last-of-type{
+                margin: 0 auto;
+            }
+        }
+
+        .helpText{
+            @include transi();
+            // position: absolute;
+            // top: 50%;
+            // left: 50%;
+            // transform: translate(-50% , -50%);
+            opacity: 1;
+        }
+
+        .jobForm{
+            @include flex(flex-start, column, flex-start);
+            padding: 1em 0;
+            width: 100%;
+    
+            label, p{
+                padding-bottom: .5em;
+                font-family: 'myriadBold';
+            }
+        }
+
+        .jobRoleContainer{
+            @include flex(flex-start, column, flex-start, wrap);
+            padding-bottom: 1em;
+            h3{
+                padding-bottom: .3em;
+            }
+        }
+    
+        .jobIconContainer{
+            @include flex(flex-start);
+            flex-wrap: wrap;
+            gap: 1em;
+        }
+        input, select{
+            padding: .5em 1em;
+            font-family: 'myriadBold';
+            font-size: 16px;
+            border-radius: 7px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+            background-color: #FCFCFC;
+            border: none;
+        }
+        .inputLabel {
+            position: relative;
+            display: inline-block;
+    
+            input {
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            }
+    
+            span {
+                @include transi();
+                cursor: pointer;
+                padding: .3em .5em;
+                border-radius: 0px;
+                border: 1px solid black;
+                background-color: transparent;
+                color: black;
+                text-transform: capitalize;
+            }
+    
+            input:checked + span {
+                // border: 1px solid $playerColor;
+                background-color: $playerColor;
+            }
+        }
+
+        .inputLabelJob{
+            @include flex();
+            padding: 0;
+    
+            span {
+                border-radius: 7px;
+                border: 1px solid transparent;
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+                background-color: transparent;
+            }
+    
+            input:checked + span {
+                border: 1px solid $playerColor;
+                background-color: $playerColor;
+            }
+        }
+
+        #buttonDiv{
+            @include flex(space-around, row, center, wrap);
+            gap: 2em;
+            width: 100%;
+            button{
+                max-width: 230px;
+                width: 100%;
+            }
+        }
+    }
+
+    // if navigator support backdrop
+    @supports ((-webkit-backdrop-filter: blur(18px)) or (backdrop-filter: blur(18px))) {
+        .filter {
+            -webkit-backdrop-filter: blur(18px);
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(18px);
+        }
+    }
+
+    .filterRoster{
+        .inputLabelJob{
+            input:checked + span {
+                border: 1px solid $rosterColor;
+                background-color: $rosterColor;
+            }
+        }
+        .inputLabel {
+            input:checked + span {
+                background-color: $rosterColor;
+            }
+        }
+        button{
+            background-color: $rosterColor;
+        }
+    }
+    
+    .listCardContainer{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 3em;
+        justify-items: center;
+        justify-content: center;
+        align-content: center;
+        margin: 0 auto;
+        padding: 5em 0;
+        width: 90%;
+    }
+    .playerCard, .rosterCard{
+        @include flex(flex-start, column);
+        position: relative;
+        background-color: #ffffff;
+        border-radius: 3px;
+        padding: 1em 2em;
+        width: 260px;
+        min-height: 460px;
+        border-bottom: 7px solid $playerColor;
+
+        .button{
+            position: absolute;
+            width: auto;
+            height: auto;
+            padding: .75em 1.5em;
+            bottom: 0;
+            transform: translateY(calc(50% + 3.5px));
+        }
+    }
+
+    .rosterCard{
+        padding: 0;
+        border-bottom: 7px solid $rosterColor;
+    }
+
+    .rosterCardBody{
+        @include flex(flex-start, column);
+        padding: 1em 2em;
+    }
+
+    .banner{
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        line-height: 0;
+    }
+    .avatar{
+        width: 130px;
+        height: 130px;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+
+    .playerName, .rosterName{
+        padding-top: .8em;
+    }
+
+    .playerServer, .rosterDataCenter{
+        padding-bottom: 1em;
+        .icon{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .smallText{
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .playerJobContainer, .rosterJobContainer{
+        @include flex(center, column);
+        width: 100%;
+        padding: 2em 0;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+
+        .role{
+            @include flex(); 
+            gap: 1.5em;
+            width: 100%;
+            // padding-bottom: 1em;
+            img{
+                cursor: pointer;
+            }
+        }
+
+        .jobContainer{
+            padding-top: 1em;
+        }
+    }
+    .playerType, .rosterType{
+        padding: 1em 0 .5em;
+    }
+
+    .playerLanguage img, .rosterLanguage img{
+        margin: .3em 0 .5em;
+    }
+    .playerType, .playerLanguage, .rosterType, .rosterLanguage{
+        align-self: flex-start;
+    }
+}
